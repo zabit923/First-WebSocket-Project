@@ -3,9 +3,12 @@ from django.urls import reverse
 from allauth.account.utils import send_email_confirmation
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import *
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 def profile_view(request, username=None):

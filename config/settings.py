@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django_htmx',
 
-    'home',
     'users',
     'chat',
 ]
@@ -104,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # _______________________________________________________________________________________________________________
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 

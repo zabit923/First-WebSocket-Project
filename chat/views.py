@@ -19,10 +19,5 @@ def chat_view(request):
             message.author = request.user
             message.group = chat_group
             message.save()
-            context = {
-                'message': message,
-                'user': request.user
-            }
-            return render(request, 'chat/chat_message.html', context)
 
     return render(request, 'chat/chat.html', context={'chat_messages': chat_messages, 'form': form})

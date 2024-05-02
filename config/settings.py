@@ -1,4 +1,6 @@
 import os
+
+import channels.layers
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -82,10 +84,13 @@ DATABASES = {
     }
 }
 
-CHANNEL_LAYER = {
-    'default': {
-        'BACKEND': 'channels.layers.Is'
-    }
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
 }
 
 

@@ -15,9 +15,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 
-# CSRF_TRUSTED_ORIGINS = [
-#     'https://90bf-185-244-21-185.ngrok-free.app',
-# ]
+CSRF_TRUSTED_ORIGINS = [
+    'https://a3d8-185-244-21-185.ngrok-free.app',
+]
 
 INSTALLED_APPS = [
     'daphne',

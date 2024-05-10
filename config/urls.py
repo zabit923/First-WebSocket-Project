@@ -12,7 +12,7 @@ urlpatterns = [
     path('', chat_view, name="home"),
     path('profile/', include('users.urls')),
     path('@<username>/', profile_view, name="profile"),
-    path('chat/', include('chat.urls', namespace='chat'))
+    path('chat/', include('chat.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

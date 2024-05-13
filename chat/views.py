@@ -3,7 +3,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 
-from .forms import MessageForm
+from .forms import MessageForm, NewGroupForm
 from .models import ChatGroup, User
 
 
@@ -21,6 +21,10 @@ def chat_view(request, chatroom_name='public-chat'):
             if member != request.user:
                 other_user = member
                 break
+
+    if chat_group.groupchat_name:
+        if request.user not in chat_group.members.all():
+            chat_group.members.add(request.user)
 
     if request.htmx:
         form = MessageForm(request.POST)
@@ -42,6 +46,7 @@ def chat_view(request, chatroom_name='public-chat'):
         'form': form,
         'other_user': other_user,
         'chatroom_name': chatroom_name,
+        'chat_group': chat_group
     }
 
     return render(request, 'chat/chat.html', context=context)
@@ -68,3 +73,22 @@ def get_or_create_chatroom(request, username):
         chatroom.members.add(other_user, request.user)
 
     return redirect('chatroom', chatroom.group_name)
+
+
+@login_required
+def create_chatgroup(request):
+    form = NewGroupForm()
+
+    if request.method == 'POST':
+        form = NewGroupForm(request.POST)
+        if form.is_valid():
+            new_groupchat = form.save(commit=False)
+            new_groupchat.admin = request.user
+            new_groupchat.save()
+            new_groupchat.members.add(request.user)
+            return redirect('chatroom', new_groupchat.group_name)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'chat/create_groupchat.html', context)
